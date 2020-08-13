@@ -1,0 +1,49 @@
+{
+  "name": "financial-management",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "dev": "nodemon --inspect ./bin/www",
+    "linting": "eslint '**/*.js' app.js --ignore-pattern node_modules/",
+    "prettier": "prettier '**/*.js' app.js --ignore-pattern node_modules/",
+    "format": "npm run prettier -- --write"
+  },
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "bcrypt": "^5.0.0",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "http-status": "^1.4.2",
+    "jade": "~1.11.0",
+    "joi-objectid": "^3.0.1",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.27.0",
+    "mongoose": "^5.9.28",
+    "morgan": "~1.9.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.6.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.11",
+    "nodemon": "^2.0.4",
+    "prettier": "^2.0.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "'**/*.js' app.js --ignore-pattern node_modules/": [
+      "eslint '**/*.js' app.js --ignore-pattern node_modules/",
+      "npm run format",
+      "git add"
+    ]
+  }
+}
