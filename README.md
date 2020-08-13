@@ -6,6 +6,6 @@ Open your
 yarn
 yarn start
 
--cd server
+- cd server
 yarn 
 yarn dev
