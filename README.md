@@ -1,7 +1,7 @@
 # financial-management
 
 ## How to run project
-Open your 
+Open your terminal
 - cd client
 yarn
 yarn start
