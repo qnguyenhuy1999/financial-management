@@ -24,14 +24,13 @@ export const getBudgetFail = (error) => {
   };
 };
 
-export const editBudget = (cash, card, balancePerMonth, mainCurrency) => {
+export const editBudget = (cash, card, balancePerMonth) => {
   return {
     type: budgetConstants.EDIT_BUDGET,
     payload: {
       cash,
       card,
       balancePerMonth,
-      mainCurrency,
     },
   };
 };

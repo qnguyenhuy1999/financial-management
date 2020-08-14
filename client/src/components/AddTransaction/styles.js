@@ -6,11 +6,23 @@ export const AddTransactionContainer = styled.div`
   justify-content: space-between;
 `;
 
-export const FormGroup = styled.div`
-  margin-bottom: 10px;
+export const Title = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
-export const Title = styled.p`
-  font-size: 16px;
-  margin-bottom: 5px;
+export const Icon = styled.div`
+  padding: 9px 13px;
+  border-radius: 50%;
+  margin-right: 7px;
+`;
+
+export const TagI = styled.i`
+  font-size: 18px;
+  color: #fff;
+`;
+
+export const TagSpanName = styled.span`
+  color: #324c5b;
+  font-size: 15px;
 `;

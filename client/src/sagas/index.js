@@ -1,11 +1,13 @@
 import authSaga from "./auth";
 import budgetSaga from "./budget";
-import currencySaga from "./currency";
+import categorySaga from "./category";
+import transactionSaga from "./transaction";
 
 function* rootSagas() {
   yield* authSaga();
   yield* budgetSaga();
-  yield* currencySaga();
+  yield* categorySaga();
+  yield* transactionSaga();
 }
 
 export default rootSagas;

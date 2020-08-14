@@ -25,9 +25,9 @@ function* getSaga() {
 
 function* editSaga({ payload }) {
   try {
-    const { cash, card, balancePerMonth, mainCurrency } = payload;
+    const { cash, card, balancePerMonth } = payload;
 
-    const res = yield call(edit, { cash, card, balancePerMonth, mainCurrency });
+    const res = yield call(edit, { cash, card, balancePerMonth });
 
     const { status, data } = res;
     if (status === statusCode.SUCCESS) {

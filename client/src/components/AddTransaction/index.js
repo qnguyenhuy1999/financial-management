@@ -1,13 +1,36 @@
-import React from "react";
-import { Modal, Form, Select, DatePicker, InputNumber } from "antd";
+import React, { useState } from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { Modal, Form, Select, DatePicker, InputNumber, Button } from "antd";
 import PropTypes from "prop-types";
 
-import { AddTransactionContainer, FormGroup, Title } from "./styles";
+import {
+  AddTransactionContainer,
+  Icon,
+  TagI,
+  Title,
+  TagSpanName,
+} from "./styles";
+import * as transactionAction from "../../actions/transaction";
 
-const { Option } = Select;
+function AddTransaction(props) {
+  const [input, setInput] = useState("");
+  const [form] = Form.useForm();
+  const {
+    categories,
+    showModal,
+    setShowModal,
+    transactionActionCreators,
+  } = props;
+  const { createTransaction } = transactionActionCreators;
 
-export default function AddTransaction(props) {
-  const { showModal, setShowModal } = props;
+  const onFinish = (values) => {
+    setShowModal(false);
+    const { category, recurrence, date, amount } = values;
+    createTransaction(amount, category, recurrence, date);
+    form.resetFields();
+  };
+
   return (
     <Modal
       title="ADD NEW TRANSACTION"
@@ -15,38 +38,76 @@ export default function AddTransaction(props) {
       onOk={() => setShowModal(false)}
       visible={showModal}
     >
-      <Form>
+      <Form form={form} onFinish={onFinish}>
         <AddTransactionContainer>
-          <FormGroup>
-            <Title>Category</Title>
+          <Form.Item label="Category" name="category" labelCol={{ span: 4 }}>
             <Select placeholder="Select category" style={{ width: "100%" }}>
-              <Option value="family">Family</Option>
+              <Select.OptGroup label="Expenses">
+                {categories.expenses.length > 0 &&
+                  categories.expenses.map((category, index) => (
+                    <Select.Option value={category._id} key={index}>
+                      <Title>
+                        <Icon
+                          style={{
+                            background: category.icon.background,
+                          }}
+                        >
+                          <TagI className={category.icon.class} />
+                        </Icon>
+                        <TagSpanName>{category.name}</TagSpanName>
+                      </Title>
+                    </Select.Option>
+                  ))}
+              </Select.OptGroup>
+
+              <Select.OptGroup label="Income">
+                {categories.income.length > 0 &&
+                  categories.income.map((category, index) => (
+                    <Select.Option value={category._id} key={index}>
+                      <Title>
+                        <Icon
+                          style={{
+                            background: category.icon.background,
+                          }}
+                        >
+                          <TagI className={category.icon.class} />
+                        </Icon>
+                        <TagSpanName>{category.name}</TagSpanName>
+                      </Title>
+                    </Select.Option>
+                  ))}
+              </Select.OptGroup>
             </Select>
-          </FormGroup>
+          </Form.Item>
 
-          <FormGroup>
-            <Title>Recurrence</Title>
-            <Select placeholder="Select recurrence" style={{ width: "100%" }}>
-              <Option value="day">Day</Option>
+          <Form.Item
+            label="Recurrence"
+            name="recurrence"
+            labelCol={{ span: 4 }}
+          >
+            <Select
+              placeholder="Select recurrence"
+              style={{ width: "100%" }}
+              onChange={(value) => setInput(value)}
+            >
+              <Select.Option value="monthly">Monthly</Select.Option>
+              <Select.Option value="day">Day</Select.Option>
             </Select>
-          </FormGroup>
+          </Form.Item>
 
-          <FormGroup>
-            <Title>Date</Title>
-            <DatePicker style={{ width: "100%" }} />
-          </FormGroup>
+          {input === "day" && (
+            <Form.Item label="Date" name="date" labelCol={{ span: 4 }}>
+              <DatePicker style={{ width: "100%" }} />
+            </Form.Item>
+          )}
 
-          <FormGroup>
-            <Title>Amount</Title>
+          <Form.Item label="Amount" name="amount" labelCol={{ span: 4 }}>
             <InputNumber placeholder="0" style={{ width: "100%" }} />
-          </FormGroup>
+          </Form.Item>
 
-          <FormGroup>
-            <Title>Currency</Title>
-            <Select placeholder="Select currency" style={{ width: "100%" }}>
-              <Option value="vnd">VND</Option>
-            </Select>
-          </FormGroup>
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
         </AddTransactionContainer>
       </Form>
     </Modal>
@@ -57,3 +118,17 @@ AddTransaction.propTypes = {
   showModal: PropTypes.bool,
   setShowModal: PropTypes.func,
 };
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    transactionActionCreators: bindActionCreators(transactionAction, dispatch),
+  };
+};
+
+const mapStateToProps = (state) => {
+  return {
+    categories: state.category,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddTransaction);

@@ -14,7 +14,7 @@ module.exports.get = async (req, res) => {
 };
 
 module.exports.edit = async (req, res) => {
-  const { cash, card, balancePerMonth, mainCurrency } = req.body;
+  const { cash, card, balancePerMonth } = req.body;
   const { _id } = req.user;
 
   try {
@@ -24,7 +24,7 @@ module.exports.edit = async (req, res) => {
         cash,
         card,
         balancePerMonth,
-        mainCurrency,
+        mainCurrency: "5f2ea0c9175ab01a742bbaa9",
       },
     );
 

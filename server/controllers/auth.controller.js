@@ -51,6 +51,7 @@ module.exports.register = async (req, res) => {
     await Budget.create({
       cash: 0,
       card: 0,
+      mainCurrency: "5f2ea0c9175ab01a742bbaa9",
       balancePerMonth: 0,
       user: newUser.id,
     });

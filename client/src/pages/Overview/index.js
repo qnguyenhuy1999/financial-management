@@ -3,15 +3,12 @@ import { Row, Col } from "antd";
 
 import { ContainerPeriod } from "./styles";
 import ContainerCard from "../../components/ContainerCard";
-import ChangeChart from "../../components/ChangeChart";
 import CostPeriod from "../../components/CostPeriod";
 
 export default function () {
   return (
     <div>
       <ContainerCard />
-
-      <ChangeChart />
 
       <ContainerPeriod>
         <Row gutter="50">

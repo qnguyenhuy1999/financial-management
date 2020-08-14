@@ -1,26 +1,28 @@
 import { toast } from "react-toastify";
 
-import * as constants from "../constants/currency";
+import * as constants from "../constants/category";
 
 const initialState = {
-  data: {},
+  expenses: [],
+  income: [],
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case constants.GET_CURRENCY: {
+    case constants.GET_CATEGORY: {
       return state;
     }
 
-    case constants.GET_CURRENCY_SUCCESS: {
+    case constants.GET_CATEGORY_SUCCESS: {
       const { data } = action.payload;
       return {
         ...state,
-        data,
+        expenses: data.expenses,
+        income: data.income,
       };
     }
 
-    case constants.GET_CURRENCY_FAIL: {
+    case constants.GET_CATEGORY_FAIL: {
       const { error } = action.payload;
       toast.error(error);
       return state;

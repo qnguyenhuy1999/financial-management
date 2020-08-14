@@ -15,6 +15,7 @@ const budgetSchema = new mongoose.Schema({
   },
   mainCurrency: {
     type: mongoose.Schema.Types.ObjectId,
+    default: "5f2ea0c9175ab01a742bbaa9",
     ref: "Currency",
   },
   user: {

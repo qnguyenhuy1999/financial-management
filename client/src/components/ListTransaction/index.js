@@ -1,8 +1,12 @@
 import React from "react";
+import { connect } from "react-redux";
+import moment from "moment";
+import classNames from "classnames";
 
 import {
   ListTransactionContainer,
-  OneDayContainer,
+  MonthContainer,
+  DayContainer,
   Header,
   TagPHeader,
   TagSpanHeader,
@@ -13,74 +17,107 @@ import {
   TagSpanName,
   TagSpanAmount,
 } from "./styles";
+import { formatMoney } from "../../commons/helper";
 
-export default function ListTransaction() {
+function ListTransaction(props) {
+  const { transaction } = props;
+
+  const calcTotalMonth = () => {
+    let total = transaction.monthTransactions.reduce((result, item) => {
+      return item.category.type === "income"
+        ? (result += item.amount)
+        : (result -= item.amount);
+    }, 0);
+
+    return formatMoney(total > 0 ? total : -total);
+  };
+
   return (
     <ListTransactionContainer>
-      <OneDayContainer>
+      <MonthContainer>
         <Header>
-          <TagPHeader>Aug 10, 2020</TagPHeader>
+          <TagPHeader>Month</TagPHeader>
           <div className="amount">
-            <TagSpanHeader>-5.00 USD</TagSpanHeader>
+            <TagSpanHeader>{calcTotalMonth()} VND</TagSpanHeader>
           </div>
         </Header>
-        <div className="content">
-          <TransactionItem>
-            <Title>
-              <Icon>
-                <TagI className="fas fa-utensils" />
-              </Icon>
-              <TagSpanName>Food & Drink</TagSpanName>
-            </Title>
-            <div className="amount">
-              <TagSpanAmount>-5.00 USD</TagSpanAmount>
+        {transaction.monthTransactions.length > 0 &&
+          transaction.monthTransactions.map((transaction, index) => (
+            <div className="content" key={index}>
+              <TransactionItem>
+                <Title>
+                  <Icon
+                    style={{
+                      background: transaction.category.icon.background,
+                    }}
+                  >
+                    <TagI className={transaction.category.icon.class} />
+                  </Icon>
+                  <TagSpanName>{transaction.category.name}</TagSpanName>
+                </Title>
+                <div className="amount">
+                  <TagSpanAmount
+                    className={classNames({
+                      income: transaction.category.type === "income",
+                    })}
+                  >
+                    {transaction.category.type === "expenses"
+                      ? `- ${formatMoney(transaction.amount)}`
+                      : `+ ${formatMoney(transaction.amount)}`}{" "}
+                    VND
+                  </TagSpanAmount>
+                </div>
+              </TransactionItem>
             </div>
-          </TransactionItem>
-          <TransactionItem>
-            <Title>
-              <Icon>
-                <TagI className="fas fa-utensils" />
-              </Icon>
-              <TagSpanName>Food & Drink</TagSpanName>
-            </Title>
-            <div className="amount">
-              <TagSpanAmount>-5.00 USD</TagSpanAmount>
+          ))}
+      </MonthContainer>
+
+      <DayContainer>
+        {transaction.dayTransactions.length > 0 &&
+          transaction.dayTransactions.map((transaction, index) => (
+            <div className="pd-2" key={index}>
+              <Header>
+                <TagPHeader>
+                  {moment(transaction.date).format("YYYY-MM-DD")}
+                </TagPHeader>
+              </Header>
+              <div className="content">
+                <TransactionItem>
+                  <Title>
+                    <Icon
+                      style={{
+                        background: transaction.category.icon.background,
+                      }}
+                    >
+                      <TagI className={transaction.category.icon.class} />
+                    </Icon>
+                    <TagSpanName>{transaction.category.name}</TagSpanName>
+                  </Title>
+                  <div className="amount">
+                    <TagSpanAmount
+                      className={classNames({
+                        income: transaction.category.type === "income",
+                      })}
+                    >
+                      {transaction.category.type === "expenses"
+                        ? `- ${formatMoney(transaction.amount)}`
+                        : `+ ${formatMoney(transaction.amount)}`}{" "}
+                      VND
+                    </TagSpanAmount>
+                  </div>
+                </TransactionItem>
+              </div>
             </div>
-          </TransactionItem>
-        </div>
-      </OneDayContainer>
-      <OneDayContainer>
-        <Header>
-          <TagPHeader>Aug 10, 2020</TagPHeader>
-          <div className="amount">
-            <TagSpanHeader>-5.00 USD</TagSpanHeader>
-          </div>
-        </Header>
-        <div className="content">
-          <TransactionItem>
-            <Title>
-              <Icon>
-                <TagI className="fas fa-utensils" />
-              </Icon>
-              <TagSpanName>Food & Drink</TagSpanName>
-            </Title>
-            <div className="amount">
-              <TagSpanAmount>-5.00 USD</TagSpanAmount>
-            </div>
-          </TransactionItem>
-          <TransactionItem>
-            <Title>
-              <Icon>
-                <TagI className="fas fa-utensils" />
-              </Icon>
-              <TagSpanName>Food & Drink</TagSpanName>
-            </Title>
-            <div className="amount">
-              <TagSpanAmount>-5.00 USD</TagSpanAmount>
-            </div>
-          </TransactionItem>
-        </div>
-      </OneDayContainer>
+          ))}
+      </DayContainer>
     </ListTransactionContainer>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    transaction: state.transaction,
+  };
+};
+
+export default connect(mapStateToProps, null)(ListTransaction);

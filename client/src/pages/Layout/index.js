@@ -10,7 +10,8 @@ import Header from "../../components/Header";
 import PrivateRoute from "../../components/PrivateRoute";
 
 import * as budgetAction from "../../actions/budget";
-import * as currencyAction from "../../actions/currency";
+import * as categoryAction from "../../actions/category";
+import * as transactionAction from "../../actions/transaction";
 
 const { Content } = Layout;
 
@@ -39,13 +40,20 @@ const showPublicRoute = (routes) => {
 };
 
 function LayoutPage(props) {
-  const { auth, budgetActionCreators, currencyActionCreators } = props;
+  const {
+    auth,
+    budgetActionCreators,
+    categoryActionCreators,
+    transactionActionCreators,
+  } = props;
   const { getBudget } = budgetActionCreators;
-  const { getCurrency } = currencyActionCreators;
+  const { getCategory } = categoryActionCreators;
+  const { getTransaction } = transactionActionCreators;
 
   useEffect(() => {
     getBudget();
-    getCurrency();
+    getCategory();
+    getTransaction();
   }, []);
 
   return (
@@ -76,7 +84,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     budgetActionCreators: bindActionCreators(budgetAction, dispatch),
-    currencyActionCreators: bindActionCreators(currencyAction, dispatch),
+    categoryActionCreators: bindActionCreators(categoryAction, dispatch),
+    transactionActionCreators: bindActionCreators(transactionAction, dispatch),
   };
 };
 

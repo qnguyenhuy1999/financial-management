@@ -6,7 +6,6 @@ module.exports.create = (req, res, next) => {
   const schema = Joi.object({
     amount: Joi.number().required(),
     category: Joi.objectId().required(),
-    currency: Joi.objectId().required(),
     recurrence: Joi.string().required().valid("monthly", "day"),
     date: Joi.date(),
   });
@@ -26,7 +25,6 @@ module.exports.edit = (req, res, next) => {
     id: Joi.objectId().required(),
     amount: Joi.number().required(),
     category: Joi.objectId().required(),
-    currency: Joi.objectId().required(),
     recurrence: Joi.string().required().valid("monthly", "day"),
     date: Joi.date(),
   });

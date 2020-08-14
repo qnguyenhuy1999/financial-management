@@ -27,6 +27,14 @@ p {
   margin-left: 10px;
 }
 
+.pd-2 {
+  padding-bottom: 20px;
+}
+
+.pd-2:last-child {
+  padding-bottom: 0;
+}
+
 .none-border {
   border: 0 !important;
   padding: 0 !important;
@@ -122,4 +130,12 @@ p {
 .layout-main-route {
   padding: 24px 0;
   margin: 16px 0;
+}
+
+.income {
+  color: #1bcbb7 !important;
+}
+
+.sidebaritem-active {
+  background: #fff;
 }

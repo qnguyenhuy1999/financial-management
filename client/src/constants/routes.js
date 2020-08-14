@@ -2,7 +2,7 @@ import Home from "../pages/Home";
 import Overview from "../pages/Overview";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
-import WalletSetting from "../pages/WalletSetting";
+import Setting from "../pages/Setting";
 
 export const MAIN_ROUTES = [
   {
@@ -18,7 +18,7 @@ export const MAIN_ROUTES = [
   {
     path: "/setting",
     name: "setting",
-    component: WalletSetting,
+    component: Setting,
   },
 ];
 

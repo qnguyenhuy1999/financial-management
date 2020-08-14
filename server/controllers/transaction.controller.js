@@ -93,7 +93,7 @@ module.exports.get = async (req, res) => {
 };
 
 module.exports.create = async (req, res) => {
-  const { amount, category, currency, recurrence, date } = req.body;
+  const { amount, category, recurrence, date } = req.body;
   const { _id } = req.user;
 
   if (recurrence === "day" && !date) {
@@ -106,7 +106,7 @@ module.exports.create = async (req, res) => {
     const newTransaction = await Transaction.create({
       amount,
       category,
-      currency,
+      currency: "5f2ea0c9175ab01a742bbaa9",
       recurrence,
       date,
       user: _id,
@@ -115,7 +115,7 @@ module.exports.create = async (req, res) => {
     const transaction = await Transaction.findOne({
       $and: [{ _id: newTransaction.id, user: _id }],
     })
-      .populate("category", "name type")
+      .populate("category", "name type icon")
       .populate("currency", "name price")
       .select("amount category currency recurrence date");
 

@@ -1,4 +1,3 @@
-export const formatMoney = new Intl.NumberFormat("vn-VN", {
-  style: "currency",
-  currency: "VND",
-});
+export function formatMoney(num) {
+  return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+}

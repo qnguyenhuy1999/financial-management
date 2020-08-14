@@ -6,7 +6,19 @@ export const ListTransactionContainer = styled.div`
   border-radius: 0.25rem;
 `;
 
-export const OneDayContainer = styled.div`
+export const MonthContainer = styled.div`
+  padding: 10px 0;
+  border-bottom: 1px solid #e5ebee;
+  &:first-child {
+    padding-bottom: 10px !important;
+  }
+  &:last-child {
+    padding-top: 10px !important;
+    border-bottom: none;
+  }
+`;
+
+export const DayContainer = styled.div`
   padding: 10px 0;
   border-bottom: 1px solid #e5ebee;
   &:first-child {
@@ -49,7 +61,6 @@ export const Title = styled.div`
 
 export const Icon = styled.div`
   padding: 9px 13px;
-  background: #ffa801;
   border-radius: 50%;
   margin-right: 7px;
 `;

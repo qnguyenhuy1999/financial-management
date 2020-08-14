@@ -7,7 +7,6 @@ module.exports.edit = (req, res, next) => {
     cash: Joi.number().required(),
     card: Joi.number().required(),
     balancePerMonth: Joi.number().required(),
-    mainCurrency: Joi.objectId().required(),
   });
 
   const { error } = schema.validate(req.body);
