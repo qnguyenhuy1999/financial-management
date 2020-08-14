@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 
 import { BorderContainer } from "./styles";
-import ListTransaction from "../ListTransaction";
+import PeriodTransaction from "../PeriodTransaction";
 
 const RADIAN = Math.PI / 180;
 
@@ -84,7 +84,7 @@ function CostPeriod(props) {
           </PieChart>
         </ResponsiveContainer>
       </div>
-      <ListTransaction />
+      <PeriodTransaction type={title === "Income" ? "income" : "expenses"} />
     </BorderContainer>
   );
 }

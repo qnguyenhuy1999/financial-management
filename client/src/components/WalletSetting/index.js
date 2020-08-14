@@ -23,7 +23,7 @@ function WalletSettingComponent(props) {
           <Form.Item
             label="Cash"
             name="cash"
-            labelCol={{ span: 5 }}
+            labelCol={{ span: 8 }}
             initialValue={budget.cash}
           >
             <InputNumber style={{ width: "100%" }} />
@@ -32,22 +32,22 @@ function WalletSettingComponent(props) {
           <Form.Item
             label="Card"
             name="card"
-            labelCol={{ span: 5 }}
+            labelCol={{ span: 8 }}
             initialValue={budget.card}
           >
             <InputNumber style={{ width: "100%" }} />
           </Form.Item>
 
           <Form.Item
-            label="Initial balance"
+            label="Possible amount per month"
             name="balancePerMonth"
-            labelCol={{ span: 5 }}
+            labelCol={{ span: 8 }}
             initialValue={budget.balancePerMonth}
           >
             <InputNumber style={{ width: "100%" }} />
           </Form.Item>
 
-          <Form.Item wrapperCol={{ offset: 5 }}>
+          <Form.Item wrapperCol={{ offset: 8 }}>
             <Button type="primary" htmlType="submit">
               Submit
             </Button>

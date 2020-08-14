@@ -139,3 +139,7 @@ p {
 .sidebaritem-active {
   background: #fff;
 }
+
+.setting-component .ant-form-item-label > label {
+  white-space: break-spaces;
+}
