@@ -48,7 +48,7 @@ function HeaderComponent(props) {
         </Menu.Item>
 
         <Menu.Item key="3">
-          <Link to="/setting">Wallet Settings</Link>
+          <Link to="/setting">Settings</Link>
         </Menu.Item>
       </Menu>
       <div id="components-dropdown-demo-dropdown-button">
