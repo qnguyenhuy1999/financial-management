@@ -28,7 +28,6 @@ const reducer = (state = initialState, action) => {
 
     case constants.LOGIN_SUCCESS: {
       const { data } = action.payload;
-      localStorage.setItem("profile", JSON.stringify(data));
       return {
         ...state,
         isAuth: true,
@@ -65,7 +64,6 @@ const reducer = (state = initialState, action) => {
     case constants.LOGOUT_SUCCESS: {
       const { data } = action.payload;
       toast.success(data.message);
-      localStorage.removeItem("profile");
       return {
         ...state,
         isAuth: false,
@@ -76,7 +74,6 @@ const reducer = (state = initialState, action) => {
     case constants.LOGOUT_FAIL: {
       const { error } = action.payload;
       toast.error(error);
-      localStorage.removeItem("profile");
       return {
         ...state,
         isAuth: false,

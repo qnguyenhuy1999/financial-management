@@ -51,10 +51,12 @@ function LayoutPage(props) {
   const { getTransaction } = transactionActionCreators;
 
   useEffect(() => {
-    getBudget();
-    getCategory();
-    getTransaction();
-  }, []);
+    if (auth.isAuth) {
+      getBudget();
+      getCategory();
+      getTransaction();
+    }
+  }, [auth, getBudget, getCategory, getTransaction]);
 
   return (
     <Layout>

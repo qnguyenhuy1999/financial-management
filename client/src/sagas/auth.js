@@ -3,6 +3,7 @@ import { call, put, takeEvery } from "redux-saga/effects";
 import * as statusCode from "../constants/statusCode";
 import * as authConstants from "../constants/auth";
 import { login, register, logout } from "../apis/auth";
+import axiosService from "../commons/axiosService";
 import {
   loginSuccess,
   loginFail,
@@ -20,6 +21,8 @@ function* loginSaga({ payload }) {
 
     const { status, data } = res;
     if (status === statusCode.SUCCESS) {
+      localStorage.setItem("profile", JSON.stringify(data));
+      axiosService.updateToken(data.token);
       yield put(loginSuccess(data));
     }
   } catch (err) {
@@ -49,9 +52,11 @@ function* logoutSaga() {
     const { status, data } = res;
     if (status === statusCode.SUCCESS) {
       yield put(logoutSuccess(data));
+      localStorage.removeItem("profile");
     }
   } catch (err) {
     yield put(logoutFail(err.response.data.message));
+    localStorage.removeItem("profile");
   }
 }
 

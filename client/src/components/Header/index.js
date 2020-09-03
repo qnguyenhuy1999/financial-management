@@ -16,7 +16,7 @@ import * as authAction from "../../actions/auth";
 const { Header } = Layout;
 
 function HeaderComponent(props) {
-  const { authActionCreators } = props;
+  const { profile, authActionCreators } = props;
   const { logout } = authActionCreators;
 
   const menu = (
@@ -57,12 +57,18 @@ function HeaderComponent(props) {
           placement="bottomCenter"
           icon={<UserOutlined />}
         >
-          NguyenQuangHuy
+          {profile.username}
         </Dropdown.Button>
       </div>
     </Header>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    profile: state.auth.profile,
+  };
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -70,4 +76,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(HeaderComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderComponent);

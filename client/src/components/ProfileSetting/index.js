@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Form, Input, Button } from "antd";
+import { Form, Input } from "antd";
 
 import { H2 } from "./styles";
 

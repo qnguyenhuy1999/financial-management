@@ -9,6 +9,7 @@ import {
   editBudgetSuccess,
   editBudgetFail,
 } from "../actions/budget";
+import { logoutSuccess } from "../actions/auth";
 
 function* getSaga() {
   try {
@@ -19,6 +20,11 @@ function* getSaga() {
       yield put(getBudgetSuccess(data.budget));
     }
   } catch (err) {
+    if (err.response.status === 401) {
+      yield put(logoutSuccess({ message: "Logout success." }));
+      return;
+    }
+
     yield put(getBudgetFail(err.response.data.message));
   }
 }
